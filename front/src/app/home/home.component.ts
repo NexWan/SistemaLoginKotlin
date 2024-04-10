@@ -12,15 +12,19 @@ export class HomeComponent implements OnInit{
   constructor(private config: ConfigService, private router: Router, private route: ActivatedRoute) {
   }
 
+  user:any = localStorage.getItem('user')
+
   ngOnInit(){
     this.config.veryifyLogin().subscribe((data) => {
       if(data.status != "Successful") this.router.navigate(['/']).then(r => console.log(r))
     })
+
   }
 
   logout(){
     this.config.logout().subscribe((data) => {
       if(data.status == "Successful") this.router.navigate(['/']).then(r => console.log(r))
+      localStorage.removeItem('user')
     })
   }
 }
