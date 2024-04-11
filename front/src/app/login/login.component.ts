@@ -20,7 +20,10 @@ export class LoginComponent {
     this.password = (<HTMLInputElement>document.getElementById('password')).value
     var res = this.config.getUser(this.user, this.password)
     res.subscribe((data) => {
-      if(data.status == "Successful") this.router.navigate(['/home'])
+      if(data.status == "Successful"){
+        this.router.navigate(['/home'])
+        localStorage.setItem('user', this.user)
+      }
       else alert("Invalid Username or Password")
     })
   }

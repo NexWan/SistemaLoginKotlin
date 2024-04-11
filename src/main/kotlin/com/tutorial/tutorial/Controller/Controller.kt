@@ -24,10 +24,10 @@ class Controller(private val jdbcTemplate: JdbcTemplate){
         val result = jdbcTemplate.queryForList(query, username.lowercase(), password)
         request.session.setAttribute("user", null)
         val response = if(result.isEmpty())
-            mapOf("status" to "Failed")
+            mapOf("status" to "Failed", "user" to "")
         else{
             request.session.setAttribute("user", user)
-            mapOf("status" to "Successful")
+            mapOf("status" to "Successful", "user" to user)
         }
         return response
     }
