@@ -3,6 +3,14 @@
     <deployment type="dockerfile">
       <settings>
         <option name="containerName" value="DockerPostgres" />
+        <option name="portBindings">
+          <list>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="5433" />
+              <option name="hostPort" value="5433" />
+            </DockerPortBindingImpl>
+          </list>
+        </option>
         <option name="sourceFilePath" value="Dockerfile" />
       </settings>
     </deployment>

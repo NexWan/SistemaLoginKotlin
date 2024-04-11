@@ -10,7 +10,7 @@ export class ConfigService {
   constructor(private http: HttpClient) { }
 
   getUser(user:string, password:string){
-    return this.http.get<{status: string}>(this.url + 'login' + `?user=${user}&password=${password}`)
+    return this.http.post<{status:string}>(this.url + 'login', {username: user, password: password})
   }
 
   veryifyLogin(){

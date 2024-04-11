@@ -16,10 +16,12 @@ class Controller(private val jdbcTemplate: JdbcTemplate){
         return "Hello, World!"
     }
 
-    @RequestMapping("/api/login")
-    fun login(@RequestParam("user") user: String, @RequestParam("password") password: String, request: HttpServletRequest): Map<String,String>{
+    @PostMapping(value = ["/api/login"], consumes = ["application/json"])
+    fun login(@RequestBody user:User,request: HttpServletRequest): Map<String,String>{
+        val username = user.username
+        val password = user.password
         val query = "SELECT * FROM \"Users\" WHERE username = ? AND password = ?"
-        val result = jdbcTemplate.queryForList(query, user.lowercase(), password)
+        val result = jdbcTemplate.queryForList(query, username.lowercase(), password)
         request.session.setAttribute("user", null)
         val response = if(result.isEmpty())
             mapOf("status" to "Failed")
@@ -48,3 +50,5 @@ class Controller(private val jdbcTemplate: JdbcTemplate){
     }
     // { "status": "Failed"} {"Status": "Successful" }
 }
+
+class User(val username: String, val password: String)
